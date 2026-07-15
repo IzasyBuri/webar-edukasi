@@ -25,7 +25,7 @@ export const arObjects = [
       "Rafflesia hidup di kawasan hutan Sumatra.",
       "Aromanya membantu menarik serangga penyerbuk.",
     ],
-    thumbnailUrl: "/assets/rafflesia-arnoldii/targets.png",
+    thumbnailUrl: "/assets/rafflesia-arnoldii/thumbnail.webp",
     targetImageUrl: "/assets/rafflesia-arnoldii/targets.png",
     targetMindUrl: "/assets/rafflesia-arnoldii/targets.mind",
     displayType: "model",
