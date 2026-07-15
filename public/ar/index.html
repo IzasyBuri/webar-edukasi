@@ -169,7 +169,8 @@
       window.addEventListener("pagehide", stopCamera);
       window.addEventListener("beforeunload", stopCamera);
 
-      const slug = new URLSearchParams(location.search).get("slug");
+      const pathSlug = location.pathname.match(/^\/ar\/([^/]+)\/?$/);
+      const slug = new URLSearchParams(location.search).get("slug") || (pathSlug && decodeURIComponent(pathSlug[1]));
       if (!slug) {
         showFatal("Materi tidak ditemukan", "Buka materi melalui salah satu tombol Mulai AR di beranda.");
         return;
