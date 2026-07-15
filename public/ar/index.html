@@ -114,6 +114,7 @@
         object.setAttribute("scale", item.scale + " " + item.scale + " " + item.scale);
         object.setAttribute("visible", "false");
         if (item.displayType === "model") {
+          object.setAttribute("rotation", "90 0 0");
           object.setAttribute("animation__float", "property: position; from: 0 0 0.08; to: 0 0 0.16; dur: 1800; dir: alternate; loop: true; easing: easeInOutSine");
           object.addEventListener("model-error", showAssetError);
         } else {
