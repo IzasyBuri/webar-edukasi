@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { arObjects } from "@/data/ar-objects";
 
+const visibleObjects = arObjects.filter(
+  (item) => item.slug === "rafflesia-arnoldii" || item.slug === "candi-borobudur",
+);
+
 export default function Home() {
   return (
     <main>
@@ -21,10 +25,10 @@ export default function Home() {
       <section className="catalog shell" aria-labelledby="catalog-title">
         <div className="section-title">
           <h2 id="catalog-title">Pilih materi</h2>
-          <span>4 pilihan</span>
+          <span>{visibleObjects.length} pilihan</span>
         </div>
         <div className="cards">
-          {arObjects.map((item, index) => (
+          {visibleObjects.map((item, index) => (
             <article className="card" key={item.slug}>
               <div className="thumbnail">
                 <Image src={item.thumbnailUrl} alt={`Ilustrasi ${item.name}`} fill sizes="(max-width: 700px) 100vw, 50vw" />

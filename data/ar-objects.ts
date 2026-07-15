@@ -79,7 +79,7 @@ export const arObjects = [
       "Di bagian atas terdapat stupa-stupa berbentuk lonceng.",
       "Candi ini berada di wilayah Magelang, Jawa Tengah.",
     ],
-    thumbnailUrl: "/assets/candi-borobudur/thumbnail.png",
+    thumbnailUrl: "/assets/candi-borobudur/thumbnail.webp",
     targetImageUrl: "/assets/candi-borobudur/targets.png",
     targetMindUrl: "/assets/candi-borobudur/targets.mind",
     displayType: "model",
