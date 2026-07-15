@@ -10,14 +10,14 @@
   <style>
     *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#071510;color:white;font-family:Arial,sans-serif}
     a-scene{position:fixed!important;inset:0!important;z-index:1!important;width:100vw!important;height:100dvh!important;background:transparent!important}
-    .a-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;background:transparent!important}
+    .a-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;background:transparent!important;touch-action:none}
     video{z-index:0!important;max-width:none!important}
     button,a{font:inherit}.ui{position:fixed;inset:0;z-index:10;pointer-events:none}.topbar{position:absolute;top:0;left:0;right:0;padding:max(16px,env(safe-area-inset-top)) 16px 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#071510dd,transparent)}
     .back,.target-link{pointer-events:auto;min-height:44px;border:1px solid rgba(255,255,255,.24);background:rgba(7,21,16,.8);color:white;border-radius:99px;padding:0 16px;display:inline-flex;align-items:center;text-decoration:none;font-size:13px;font-weight:700;backdrop-filter:blur(10px)}
     .status{position:absolute;left:50%;top:max(82px,calc(env(safe-area-inset-top) + 65px));transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);display:flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid rgba(255,255,255,.2);border-radius:99px;background:rgba(7,21,16,.82);color:#d8e5df;font-size:12px;backdrop-filter:blur(10px)}
     .status i{width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:#f0b95b;box-shadow:0 0 12px #f0b95b}.status.found{border-color:rgba(113,242,173,.35)}.status.found i{background:#71f2ad;box-shadow:0 0 12px #71f2ad}.status.error i{background:#f27f68;box-shadow:0 0 12px #f27f68}
     .guide{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:min(78vw,360px);aspect-ratio:1.58;border:1px solid rgba(113,242,173,.55);border-radius:12px;transition:opacity .25s ease}.guide:before{content:"";position:absolute;inset:-1px;border:3px solid transparent;border-left-color:#71f2ad;border-right-color:#71f2ad;border-radius:12px}.guide:after{content:"";position:absolute;left:8%;right:8%;top:12%;height:1px;background:linear-gradient(90deg,transparent,#71f2ad,transparent);box-shadow:0 0 14px #71f2ad;animation:scanner 2.4s ease-in-out infinite}.guide.hidden{opacity:0}
-    .bottom{position:absolute;left:16px;right:16px;bottom:max(16px,calc(env(safe-area-inset-bottom) + 16px));padding:17px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(7,21,16,.88);backdrop-filter:blur(12px)}.bottom strong{display:block;margin-bottom:6px;font-size:16px}.bottom p{margin:0;color:#b9ccc3;font-size:13px;line-height:1.5}.bottom.detected{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.learn{pointer-events:auto;min-height:48px;border:0;border-radius:12px;padding:0 18px;color:#071510;background:#71f2ad;font-weight:800}
+    .bottom{position:absolute;left:16px;right:16px;bottom:max(16px,calc(env(safe-area-inset-bottom) + 16px));padding:17px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(7,21,16,.88);backdrop-filter:blur(12px)}.bottom strong{display:block;margin-bottom:6px;font-size:16px}.bottom p{margin:0;color:#b9ccc3;font-size:13px;line-height:1.5}.bottom.detected{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.gesture-hint{display:block;margin-top:7px;color:#71f2ad;font-size:11px;line-height:1.35}.learn{pointer-events:auto;min-height:48px;border:0;border-radius:12px;padding:0 18px;color:#071510;background:#71f2ad;font-weight:800}
     .loading,.fatal{position:fixed;inset:0;z-index:30;padding:28px;display:grid;place-items:center;background:#071510;text-align:center}.loading.hidden,.fatal{display:none}.fatal.visible{display:grid}.loading-ring{width:42px;height:42px;margin:0 auto 18px;border:3px solid rgba(113,242,173,.2);border-top-color:#71f2ad;border-radius:50%;animation:spin .9s linear infinite}.loading p,.fatal p{max-width:430px;margin:8px auto 0;color:#afc2b9;line-height:1.6}.fatal h1{margin:0;font:700 36px Georgia,serif}.fatal a{display:inline-flex;min-height:50px;margin-top:20px;padding:0 20px;align-items:center;border-radius:12px;color:#071510;background:#71f2ad;text-decoration:none;font-weight:800}
     .sheet{position:fixed;inset:0;z-index:40;display:none;align-items:flex-end;padding-top:40px;background:rgba(2,10,7,.58);pointer-events:auto}.sheet.open{display:flex}.sheet-card{width:100%;max-height:92dvh;overflow:auto;padding:25px 20px max(20px,env(safe-area-inset-bottom));border-radius:24px 24px 0 0;color:#17342b;background:#f4efe3}.sheet-category{margin:0 0 7px;color:#d55434;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.sheet h2{margin:0;font:700 31px Georgia,serif}.sheet-description{margin:13px 0 20px;color:#586a62;line-height:1.55}.facts{display:grid;gap:9px}.fact{padding:14px 15px;border:1px solid rgba(23,52,43,.14);border-radius:13px;background:#fffaf0;font-size:14px;line-height:1.45}.close-sheet{width:100%;min-height:53px;margin-top:18px;border:0;border-radius:13px;color:white;background:#17342b;font-weight:800}
     @keyframes scanner{0%,100%{top:12%}50%{top:88%}}@keyframes spin{to{transform:rotate(360deg)}}
@@ -56,6 +56,8 @@
       const fatal = document.getElementById("fatal");
       const sheet = document.getElementById("sheet");
       let scene;
+      let targetVisible = false;
+      let removePointerControls = function () {};
 
       function setStatus(text, state) {
         statusText.textContent = text;
@@ -89,6 +91,51 @@
         });
       }
 
+      function vectorToString(vector, fallback) {
+        return (vector || fallback).join(" ");
+      }
+
+      function addPointerControls(canvas, pivot) {
+        let activePointerId = null;
+        let lastPointerX = 0;
+        let rotationY = 0;
+
+        function pointerDown(event) {
+          if (!targetVisible || activePointerId !== null || !event.isPrimary) return;
+          activePointerId = event.pointerId;
+          lastPointerX = event.clientX;
+          canvas.setPointerCapture(event.pointerId);
+          event.preventDefault();
+        }
+
+        function pointerMove(event) {
+          if (!targetVisible || event.pointerId !== activePointerId) return;
+          const deltaX = event.clientX - lastPointerX;
+          lastPointerX = event.clientX;
+          rotationY += deltaX * 0.25;
+          pivot.setAttribute("rotation", "0 " + rotationY + " 0");
+          event.preventDefault();
+        }
+
+        function pointerEnd(event) {
+          if (event.pointerId !== activePointerId) return;
+          activePointerId = null;
+          if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+        }
+
+        canvas.addEventListener("pointerdown", pointerDown, { passive: false });
+        canvas.addEventListener("pointermove", pointerMove, { passive: false });
+        canvas.addEventListener("pointerup", pointerEnd);
+        canvas.addEventListener("pointercancel", pointerEnd);
+
+        return function () {
+          canvas.removeEventListener("pointerdown", pointerDown);
+          canvas.removeEventListener("pointermove", pointerMove);
+          canvas.removeEventListener("pointerup", pointerEnd);
+          canvas.removeEventListener("pointercancel", pointerEnd);
+        };
+      }
+
       function renderScene(item) {
         document.title = item.name + " · WebAR Edukasi";
         document.getElementById("target-link").href = item.targetImageUrl;
@@ -106,16 +153,31 @@
         camera.setAttribute("look-controls", "enabled: false");
         scene.appendChild(camera);
 
+        const ambientLight = document.createElement("a-light");
+        ambientLight.setAttribute("type", "ambient");
+        ambientLight.setAttribute("color", "#ffffff");
+        ambientLight.setAttribute("intensity", "0.9");
+        scene.appendChild(ambientLight);
+
+        const directionalLight = document.createElement("a-light");
+        directionalLight.setAttribute("type", "directional");
+        directionalLight.setAttribute("color", "#ffffff");
+        directionalLight.setAttribute("intensity", "1.2");
+        directionalLight.setAttribute("position", "-1 2 2");
+        scene.appendChild(directionalLight);
+
         const target = document.createElement("a-entity");
         target.setAttribute("mindar-image-target", "targetIndex: 0");
+        const pivot = document.createElement("a-entity");
+        pivot.setAttribute("position", vectorToString(item.position, [0, 0, 0.2]));
+        pivot.setAttribute("rotation", "0 0 0");
+        pivot.setAttribute("visible", "false");
         const object = document.createElement(item.displayType === "model" ? "a-gltf-model" : "a-image");
         object.setAttribute("src", item.assetUrl);
-        object.setAttribute("position", "0 0 0.08");
+        object.setAttribute("position", "0 0 0");
+        object.setAttribute("rotation", vectorToString(item.rotation, [0, 0, 0]));
         object.setAttribute("scale", item.scale + " " + item.scale + " " + item.scale);
-        object.setAttribute("visible", "false");
         if (item.displayType === "model") {
-          object.setAttribute("rotation", "90 0 0");
-          object.setAttribute("animation__float", "property: position; from: 0 0 0.08; to: 0 0 0.16; dur: 1800; dir: alternate; loop: true; easing: easeInOutSine");
           object.addEventListener("model-error", showAssetError);
         } else {
           object.setAttribute("width", "1");
@@ -125,21 +187,35 @@
           probe.onerror = showAssetError;
           probe.src = item.assetUrl;
         }
-        target.appendChild(object);
+        pivot.appendChild(object);
+
+        if (item.hasPlatform) {
+          const platform = document.createElement("a-cylinder");
+          platform.setAttribute("radius", "0.5");
+          platform.setAttribute("height", "0.08");
+          platform.setAttribute("position", "0 -0.1 0");
+          platform.setAttribute("color", "#75614a");
+          platform.setAttribute("material", "roughness: 0.9; metalness: 0");
+          pivot.appendChild(platform);
+        }
+
+        target.appendChild(pivot);
         scene.appendChild(target);
 
         target.addEventListener("targetFound", function () {
-          object.setAttribute("visible", "true");
+          targetVisible = true;
+          pivot.setAttribute("visible", "true");
           setStatus(item.name + " ditemukan", "found");
           guide.classList.add("hidden");
           bottom.className = "bottom detected";
-          bottom.innerHTML = "<div><strong></strong><p></p></div><button class=\"learn\" type=\"button\">Pelajari</button>";
+          bottom.innerHTML = "<div><strong></strong><p></p><small class=\"gesture-hint\">Geser kiri atau kanan untuk memutar objek.</small></div><button class=\"learn\" type=\"button\">Pelajari</button>";
           bottom.querySelector("strong").textContent = item.name;
           bottom.querySelector("p").textContent = item.shortDescription;
           bottom.querySelector("button").addEventListener("click", function () { sheet.classList.add("open"); });
         });
         target.addEventListener("targetLost", function () {
-          object.setAttribute("visible", "false");
+          targetVisible = false;
+          pivot.setAttribute("visible", "false");
           setStatus("Gambar terlepas, arahkan kembali", "");
           guide.classList.remove("hidden");
           bottom.className = "bottom";
@@ -152,11 +228,17 @@
         scene.addEventListener("arError", function () {
           showFatal("Kamera belum dapat dibuka", "Pastikan izin kamera diberikan dan halaman dibuka melalui HTTPS di Chrome Android.");
         });
+        scene.addEventListener("renderstart", function () {
+          removePointerControls();
+          removePointerControls = addPointerControls(scene.canvas, pivot);
+        }, { once: true });
         document.body.insertBefore(scene, document.body.firstChild);
       }
 
       function stopCamera() {
         try {
+          targetVisible = false;
+          removePointerControls();
           if (scene && scene.systems && scene.systems["mindar-image-system"]) scene.systems["mindar-image-system"].stop();
           document.querySelectorAll("video").forEach(function (video) {
             if (video.srcObject) video.srcObject.getTracks().forEach(function (track) { track.stop(); });

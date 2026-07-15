@@ -11,6 +11,9 @@ export type ArObject = {
   displayType: "model" | "image";
   assetUrl: string;
   scale: number;
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+  hasPlatform?: boolean;
 };
 
 export const arObjects = [
@@ -31,6 +34,8 @@ export const arObjects = [
     displayType: "model",
     assetUrl: "/assets/rafflesia-arnoldii/Rafflesia%20Arnoldii.glb",
     scale: 0.48,
+    position: [0, -0.15, 0.2],
+    rotation: [90, 0, 0],
   },
   {
     slug: "batik-kalpataru",
@@ -85,6 +90,9 @@ export const arObjects = [
     displayType: "model",
     assetUrl: "/assets/candi-borobudur/borobudur.glb",
     scale: 0.0065,
+    position: [0, -0.25, 0.2],
+    rotation: [0, 0, 0],
+    hasPlatform: true,
   },
 ] satisfies ArObject[];
 
