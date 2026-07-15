@@ -9,9 +9,9 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   <style>
     *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#071510;color:white;font-family:Arial,sans-serif}
-    a-scene{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important}
-    .a-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important}
-    video{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;object-fit:cover!important}
+    a-scene{position:fixed!important;inset:0!important;z-index:1!important;width:100vw!important;height:100dvh!important;background:transparent!important}
+    .a-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;background:transparent!important}
+    video{z-index:0!important;max-width:none!important}
     .ui{position:fixed;inset:0;z-index:10;pointer-events:none}.topbar{position:absolute;top:0;left:0;right:0;padding:max(18px,env(safe-area-inset-top)) 18px 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#071510cc,transparent)}
     .back,.help{pointer-events:auto;min-height:42px;border:1px solid rgba(255,255,255,.22);background:rgba(7,21,16,.72);color:white;border-radius:99px;padding:0 16px;display:inline-flex;align-items:center;text-decoration:none;font-size:13px;backdrop-filter:blur(10px)}
     .status{position:absolute;left:50%;top:88px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);display:flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid rgba(113,242,173,.28);border-radius:99px;background:rgba(7,21,16,.78);color:#c8ded4;font-size:12px;backdrop-filter:blur(10px)}
