@@ -1,68 +1,74 @@
 # WebAR Edukasi
 
-Starter **image-tracking WebAR** untuk pengalaman belajar interaktif. Pengguna membuka website, mengizinkan kamera, lalu mengarahkan ponsel ke gambar target. Objek 3D akan muncul dan mengikuti posisi gambar tersebut.
+Demo image-tracking WebAR sederhana untuk empat materi sekolah dasar:
 
-## Fitur MVP
+- Rafflesia Arnoldii
+- Batik Kalpataru
+- Wayang Semar
+- Candi Borobudur
 
-- landing page responsif berbahasa Indonesia;
-- image tracking menggunakan MindAR;
-- AR langsung dari browser tanpa instalasi aplikasi;
-- bunga Rafflesia 3D procedural sebagai placeholder;
-- target demo resmi MindAR agar proyek langsung dapat diuji;
-- struktur folder untuk target kustom dan model GLB;
-- siap di-deploy ke Vercel;
-- CI untuk lint dan production build.
+Katalog dibuat dengan Next.js. Satu viewer statis menggunakan MindAR 1.2.5 dan A-Frame 1.5 untuk seluruh materi. Data katalog dan viewer berasal dari `data/ar-objects.ts`.
 
-## Menjalankan secara lokal
+## Menjalankan Lokal
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka `http://localhost:3000`. Kamera dapat digunakan melalui `localhost`, tetapi pengujian pada ponsel memerlukan HTTPS. Cara termudah adalah deployment preview ke Vercel.
+Buka `http://localhost:3000`. Kamera dapat digunakan melalui `localhost`. Pengujian di ponsel harus menggunakan HTTPS, misalnya deployment preview Vercel.
 
-## Menguji AR
-
-1. Buka kartu demo melalui tombol **Buka gambar target** di komputer.
-2. Buka website melalui ponsel.
-3. Tekan **Mulai pengalaman AR** dan izinkan kamera.
-4. Arahkan kamera ponsel ke seluruh gambar target.
-5. Bunga 3D akan muncul di atas gambar.
-
-Untuk mengganti target, ikuti [`public/targets/README.md`](public/targets/README.md).
-
-## Struktur utama
+## URL Materi
 
 ```text
-app/
-├── layout.tsx          # Metadata dan root layout
-├── page.tsx            # Landing page
-└── globals.css         # Tampilan landing page
-public/
-├── ar/index.html       # Kamera MindAR + A-Frame
-├── models/             # Model .glb produksi
-└── targets/            # Gambar target dan targets.mind
-.github/workflows/      # Pemeriksaan otomatis
+/ar/rafflesia-arnoldii
+/ar/batik-kalpataru
+/ar/wayang-semar
+/ar/candi-borobudur
 ```
 
-## Deployment Vercel
+Setiap halaman memiliki tombol **Gambar target**. Buka gambar itu di layar lain atau cetak, lalu arahkan seluruh gambar ke kamera ponsel.
 
-1. Import repository ini di Vercel.
-2. Framework akan terdeteksi sebagai **Next.js**.
-3. Gunakan build command bawaan `npm run build`.
-4. Deploy. MVP tidak memerlukan environment variable.
+## Struktur Aset
 
-HTTPS dari Vercel diperlukan agar kamera dapat digunakan secara aman di ponsel.
+```text
+public/assets/{slug}/
+├── target.png atau target.jpg
+├── target.mind
+├── object.glb atau object.png
+└── thumbnail.png
+```
 
-## Tahap berikutnya
+`target.*` adalah gambar yang dikenali kamera. `object.*` adalah objek yang muncul di atas target. Versi deadline memakai ilustrasi 2D lokal agar keempat materi ringan dan dapat diuji tanpa model GLB final.
 
-- mengganti target demo dengan ilustrasi Rafflesia;
-- mengganti bunga procedural dengan `rafflesia.glb`;
-- menambahkan audio narasi anak;
-- menambahkan panel fakta dan kuis;
-- mendukung beberapa kartu edukasi sekaligus.
+## Mengganti Aset
 
-## Teknologi
+1. Siapkan model `.glb` atau gambar transparan `.png`, `.webp`, atau `.jpg`.
+2. Siapkan gambar target yang jelas dan kaya detail.
+3. Kompilasi gambar target dengan [MindAR Compiler resmi](https://hiukim.github.io/mind-ar-js-doc/tools/compile/).
+4. Letakkan file di folder `public/assets/{slug}/` yang sesuai.
+5. Ubah satu entri di `data/ar-objects.ts`, termasuk `displayType`, URL, dan `scale`.
+6. Jalankan `npm run lint` dan `npm run build`.
+7. Commit dan push. Vercel akan deploy otomatis.
 
-Next.js 16 · React 19 · MindAR 1.2.5 · A-Frame 1.5 · Vercel
+Gunakan nama file tanpa spasi. Usahakan GLB di bawah 5 MB dan gambar di bawah 2 MB. Kompres tekstur dan selalu uji setiap target pada ponsel Android sebenarnya.
+
+## Pengujian Android
+
+1. Deploy ke URL HTTPS.
+2. Buka salah satu URL materi di Chrome Android dalam posisi portrait.
+3. Izinkan kamera belakang.
+4. Tekan **Gambar target**, lalu tampilkan target pada perangkat kedua atau cetak targetnya.
+5. Arahkan kamera ke seluruh gambar sampai status berubah menjadi `{nama} ditemukan`.
+6. Pastikan objek terlihat, tekan **Pelajari**, periksa tiga fakta, lalu tekan **Tutup**.
+7. Jauhkan kamera dari target dan pastikan pesan untuk mengarahkan kembali muncul.
+8. Ulangi untuk keempat URL.
+
+## Pemeriksaan
+
+```bash
+npm run lint
+npm run build
+```
+
+Tidak ada database, autentikasi, panel admin, audio, atau kuis pada versi deadline ini.
