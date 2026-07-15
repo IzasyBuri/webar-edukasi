@@ -8,18 +8,21 @@
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   <style>
-    *{box-sizing:border-box} body{margin:0;overflow:hidden;background:#071510;color:white;font-family:Arial,sans-serif}
+    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#071510;color:white;font-family:Arial,sans-serif}
+    a-scene{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important}
+    .a-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important}
+    video{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;object-fit:cover!important}
     .ui{position:fixed;inset:0;z-index:10;pointer-events:none}.topbar{position:absolute;top:0;left:0;right:0;padding:max(18px,env(safe-area-inset-top)) 18px 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#071510cc,transparent)}
     .back,.help{pointer-events:auto;min-height:42px;border:1px solid rgba(255,255,255,.22);background:rgba(7,21,16,.72);color:white;border-radius:99px;padding:0 16px;display:inline-flex;align-items:center;text-decoration:none;font-size:13px;backdrop-filter:blur(10px)}
     .status{position:absolute;left:50%;top:88px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);display:flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid rgba(113,242,173,.28);border-radius:99px;background:rgba(7,21,16,.78);color:#c8ded4;font-size:12px;backdrop-filter:blur(10px)}
     .status i{width:8px;height:8px;border-radius:50%;background:#f0b95b;box-shadow:0 0 12px currentColor}.status.found i{background:#71f2ad}.status.found span{color:#71f2ad}
     .guide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(78vw,360px);aspect-ratio:1.58;border:1px solid rgba(113,242,173,.55);border-radius:12px;transition:opacity .25s ease}.guide::before{content:"";position:absolute;inset:-1px;border:3px solid transparent;border-left-color:#71f2ad;border-right-color:#71f2ad;border-radius:12px}.guide::after{content:"";position:absolute;left:8%;right:8%;top:12%;height:1px;background:linear-gradient(90deg,transparent,#71f2ad,transparent);box-shadow:0 0 14px #71f2ad;animation:scanner 2.4s ease-in-out infinite}.guide.hidden{opacity:0}
-    .bottom{position:absolute;left:18px;right:18px;bottom:max(20px,env(safe-area-inset-bottom));padding:17px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(7,21,16,.82);backdrop-filter:blur(12px);text-align:center}.bottom strong{display:block;margin-bottom:6px;font-size:15px}.bottom span{color:#a8beb4;font-size:12px;line-height:1.45}
+    .bottom{position:absolute;left:18px;right:18px;bottom:max(18px,calc(env(safe-area-inset-bottom) + 18px));padding:17px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(7,21,16,.82);backdrop-filter:blur(12px);text-align:center}.bottom strong{display:block;margin-bottom:6px;font-size:15px}.bottom span{color:#a8beb4;font-size:12px;line-height:1.45}
     .error{display:none;position:fixed;inset:0;z-index:30;padding:30px;background:#071510;place-items:center;text-align:center}.error.visible{display:grid}.error h1{font:400 38px Georgia,serif;margin:0 0 12px}.error p{color:#a8beb4;line-height:1.6;max-width:420px}.error a{color:#071510;background:#71f2ad;padding:14px 20px;text-decoration:none;display:inline-block;margin-top:10px}
     @keyframes scanner{0%,100%{top:12%}50%{top:88%}}
   </style>
   <script>
-    AFRAME.registerComponent("flower-reveal",{init:function(){const flower=this.el,status=document.querySelector(".status"),guide=document.querySelector(".guide");flower.object3D.scale.set(.001,.001,.001);this.el.parentEl.addEventListener("targetFound",()=>{status.classList.add("found");status.querySelector("span").textContent="Rafflesia ditemukan";guide.classList.add("hidden");flower.setAttribute("animation__reveal","property: scale; from: 0.001 0.001 0.001; to: 1 1 1; dur: 850; easing: easeOutBack")});this.el.parentEl.addEventListener("targetLost",()=>{status.classList.remove("found");status.querySelector("span").textContent="Mencari gambar target…";guide.classList.remove("hidden")})}});
+    AFRAME.registerComponent("flower-reveal",{init:function(){const flower=this.el,status=document.querySelector(".status"),guide=document.querySelector(".guide");flower.object3D.visible=false;this.el.parentEl.addEventListener("targetFound",()=>{flower.object3D.visible=true;flower.object3D.scale.set(1,1,1);status.classList.add("found");status.querySelector("span").textContent="Rafflesia ditemukan";guide.classList.add("hidden")});this.el.parentEl.addEventListener("targetLost",()=>{status.classList.remove("found");status.querySelector("span").textContent="Target terlepas — arahkan kembali";guide.classList.remove("hidden")})}});
     window.addEventListener("load",()=>{document.querySelector("a-scene").addEventListener("arError",()=>document.querySelector(".error").classList.add("visible"))});
   </script>
 </head>
@@ -30,7 +33,7 @@
     <div class="bottom"><strong>Arahkan ke seluruh gambar</strong><span>Jaga ponsel tetap stabil dan gunakan pencahayaan yang cukup.</span></div>
   </div>
   <div class="error"><div><h1>Kamera belum dapat dibuka</h1><p>Pastikan izin kamera diberikan dan halaman dibuka melalui HTTPS di ponsel.</p><a href="/">Kembali ke beranda</a></div></div>
-  <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true; filterMinCF: 0.001; filterBeta: 0.01;" color-space="sRGB" renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+  <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true; filterMinCF: 0.001; filterBeta: 10; warmupTolerance: 3; missTolerance: 5; uiLoading: no; uiScanning: no; uiError: no;" color-space="sRGB" renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     <a-entity mindar-image-target="targetIndex: 0">
       <a-entity flower-reveal position="0 0 0.18" animation__float="property: position; from: 0 0 0.16; to: 0 0 0.23; dur: 1800; dir: alternate; loop: true; easing: easeInOutSine">
