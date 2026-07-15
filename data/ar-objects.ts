@@ -80,11 +80,11 @@ export const arObjects = [
       "Candi ini berada di wilayah Magelang, Jawa Tengah.",
     ],
     thumbnailUrl: "/assets/candi-borobudur/thumbnail.png",
-    targetImageUrl: "/assets/candi-borobudur/target.jpg",
-    targetMindUrl: "/assets/candi-borobudur/target.mind",
-    displayType: "image",
-    assetUrl: "/assets/candi-borobudur/object.png",
-    scale: 1.15,
+    targetImageUrl: "/assets/candi-borobudur/targets.png",
+    targetMindUrl: "/assets/candi-borobudur/targets.mind",
+    displayType: "model",
+    assetUrl: "/assets/candi-borobudur/borobudur.glb",
+    scale: 0.0065,
   },
 ] satisfies ArObject[];
 
